@@ -1,0 +1,1 @@
+INSERT INTO Test (description, price) VALUES ('hallo', 20.2);
