@@ -36,3 +36,12 @@ b66d376ea3e7   postgres   "docker-entrypoint.s…"   12 days ago   Up 13 hours  
 Als letzten schritt muss man die Intellij IDE starten und den herruntergeladen Ordner als Projekt öffnen. <br>
 Wenn das Projekt geöffnet ist kann man in der Rechten Seitelasten auf das Gradle icon clicken und under Tasks > application auf "bootRun" doppelt clicken.
 
+## Üperprüfen
+Wenn alles funktioniert hatt, sollte unter folgenden url: http://localhost:8080/welcome <br>
+Dieser Text erscheinen
+```bash
+Hi there
+```
+## OpenAPI definition
+Wenn alle korrekt eingerichtet ist kann man unter folgenden url: http://localhost:8080/swagger-ui/index.html#/ <br>
+Die verschiedenen Methoden von dem Programm sehen.
