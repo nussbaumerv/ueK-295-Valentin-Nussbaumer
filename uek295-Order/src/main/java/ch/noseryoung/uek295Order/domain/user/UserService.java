@@ -1,11 +1,8 @@
-package ch.noseryoung.uek295Order.domain.security;
+package ch.noseryoung.uek295Order.domain.user;
 
-
-import java.util.Collection;
-
-import ch.noseryoung.uek295Order.domain.user.User;
-import ch.noseryoung.uek295Order.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,19 +10,24 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
+
 @Service
-@RequiredArgsConstructor
-public class UserServiceImpl implements UserDetailsService {
+@Log4j2
+public class UserService implements UserDetailsService {
     UserRepository repository;
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        return new UserDetailsImpl(repository.findByEmail(email));
+
+    public UserService(UserRepository userRepository){
+        repository = userRepository;
+    }
+
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return repository.findUserByUsername(username).map(UserDetailsImpl::new).orElseThrow(() -> new UsernameNotFoundException(username));
     }
 
     public record UserDetailsImpl(User user) implements UserDetails {
-        @Override
         public Collection<? extends GrantedAuthority> getAuthorities() {
-            return user.getRoles().stream().flatMap(r -> r.getAuthorities().stream())
+            return user.getRuleSet().stream().flatMap(r -> r.getAuthoritySet().stream())
                     .map(a -> new SimpleGrantedAuthority(a.getName()))
                     .toList();
         }
@@ -37,7 +39,7 @@ public class UserServiceImpl implements UserDetailsService {
 
         @Override
         public String getUsername() {
-            return user.getEmail();
+            return user.getUsername();
         }
 
         @Override
@@ -60,9 +62,4 @@ public class UserServiceImpl implements UserDetailsService {
             return true;
         }
     }
-
-
-
-
-
 }

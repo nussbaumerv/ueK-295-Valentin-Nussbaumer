@@ -1,27 +1,19 @@
---USERS
-insert into users (email,first_name,last_name, password)
-values ('admin@example.com', 'James','Bond', '1234' ),
-       ('user@example.com', 'Tyler','Durden', '1234')
-ON CONFLICT DO NOTHING;
+INSERT INTO users (username, password) VALUES ('Valentin', '123456');
+INSERT INTO users (username, password) VALUES ('Valentin-le-admin', '654321');
 
+INSERT INTO role (role_name) VALUES ('ADMIN');
+INSERT INTO role (role_name) VALUES ('USER');
 
---ROLES
-INSERT INTO role(name)
-VALUES ('DEFAULT')
-ON CONFLICT DO NOTHING;
+INSERT INTO authority (authority_name) VALUES ('CREATE');
+INSERT INTO authority (authority_name) VALUES ('READ');
+INSERT INTO authority (authority_name) VALUES ('UPDATE');
+INSERT INTO authority (authority_name) VALUES ('DELETE');
 
---AUTHORITIES
-INSERT INTO authority(name)
-VALUES ('DEFAULT')
-ON CONFLICT DO NOTHING;
+INSERT INTO user_role VALUES (1, 2);
+INSERT INTO user_role VALUES (2, 1);
 
---assign roles to users
-insert into user_role (users_id, role_id)
-values (1, 1),
-       (2, 2)
-ON CONFLICT DO NOTHING;
-
---assign authorities to roles
-INSERT INTO role_authority(role_id, authority_id)
-VALUES (1, 1)
-ON CONFLICT DO NOTHING;
+INSERT INTO role_authority VALUES (1, 1);
+INSERT INTO role_authority VALUES (1, 2);
+INSERT INTO role_authority VALUES (1, 3);
+INSERT INTO role_authority VALUES (1, 4);
+INSERT INTO role_authority VALUES (2, 1);

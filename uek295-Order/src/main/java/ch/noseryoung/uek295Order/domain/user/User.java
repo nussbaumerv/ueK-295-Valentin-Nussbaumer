@@ -1,34 +1,37 @@
 package ch.noseryoung.uek295Order.domain.user;
 
 import ch.noseryoung.uek295Order.domain.role.Role;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.Optional;
+import java.util.Set;
 
-@Entity(name = "users")
-@Getter
-@Setter
+@Entity
+@Data
+@NoArgsConstructor
+@Table(name = "users")
 public class User {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
+    private int id;
 
-    private String firstName;
-    private String lastName;
-    private String email;
+    @Column(name = "username")
+    private String username;
+
+    @Column(name = "password")
     private String password;
 
-    @ManyToMany
+    @ManyToMany(fetch =FetchType.EAGER)
     @JoinTable(
             name = "user_role",
-            joinColumns = @JoinColumn(
-                    name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(
-                    name = "role_id", referencedColumnName = "id"))
-    private Collection<Role> roles;
+            joinColumns = @JoinColumn(name = "id_user", referencedColumnName = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "id_role", referencedColumnName = "role_id"))
+    private Set<Role> ruleSet;
 
+    public User(User user) {
+        this.id = user.getId();
+        this.username = user.getUsername();
+    }
 }

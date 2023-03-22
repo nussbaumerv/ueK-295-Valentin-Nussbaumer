@@ -1,32 +1,30 @@
 package ch.noseryoung.uek295Order.domain.role;
 
+
 import ch.noseryoung.uek295Order.domain.authority.Authority;
-import ch.noseryoung.uek295Order.domain.user.User;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.Set;
 
 @Entity
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
+@Table(name = "role")
 public class Role {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "role_id")
+    private int id;
 
-    private String name;
-    @ManyToMany(mappedBy = "roles")
-    private Collection<User> users;
+    @Column(name = "role_name")
+    private String roleName;
 
-    @ManyToMany
+    @ManyToMany()
     @JoinTable(
             name = "role_authority",
-            joinColumns = @JoinColumn(
-                    name = "role_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(
-                    name = "authority_id", referencedColumnName = "id"))
-    private Collection<Authority> authorities;
+            joinColumns = @JoinColumn(name = "id_role", referencedColumnName = "role_id"),
+            inverseJoinColumns = @JoinColumn(name = "id_authority", referencedColumnName = "authority_id"))
+    private Set<Authority> authoritySet;
 }
