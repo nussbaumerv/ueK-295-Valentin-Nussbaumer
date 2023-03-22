@@ -12,7 +12,7 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/order-services/v1/orders")
 public class OrderController {
     private final OrderService service;
     public OrderController(OrderService service){
