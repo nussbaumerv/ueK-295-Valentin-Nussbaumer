@@ -33,7 +33,6 @@ public class ProductService {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
     public ResponseEntity<HttpStatus> updateProduct(Product product){
-        repository.
         repository.delete(product);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
