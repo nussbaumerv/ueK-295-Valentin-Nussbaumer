@@ -1,12 +1,16 @@
 package ch.noseryoung.uek295Order.domain.order;
+import ch.noseryoung.uek295Order.domain.order.Exceptions.OrderNotFoundException;
 import lombok.extern.log4j.Log4j;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Log4j2
 @Service
 public class OrderService {
@@ -19,30 +23,26 @@ public class OrderService {
         return repository.findAll();
     }
 
-    public Order getOrderById(int id) {
-        return repository.findById(id);
+    public Order getOrderById(int id) throws OrderNotFoundException {
+        return repository.findById(id).orElseThrow(OrderNotFoundException::new);
     }
 
-    public ResponseEntity<HttpStatus> createOrder(Order order){
+    public ResponseEntity<Order> createOrder(Order order){
         repository.save(order);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(order, HttpStatus.OK);
     }
 
-    public ResponseEntity<HttpStatus> deleteOrder(Order product){
-        repository.delete(product);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<Order> deleteOrder(Order order){
+        repository.delete(order);
+        return new ResponseEntity<>(order, HttpStatus.OK);
     }
-    public ResponseEntity<HttpStatus> updateOrder(Order orderNew){
+    public ResponseEntity<Order> updateOrder(Order orderNew) throws OrderNotFoundException {
         Order orderOld = getOrderById(orderNew.getOrderID());
         orderOld.setCustomerID(orderNew.getCustomerID());
         orderOld.setShippingMethodID(orderNew.getShippingMethodID());
         orderOld.setOrderID(orderNew.getOrderID());
         repository.save(orderOld);
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
-    public ResponseEntity<HttpStatus> deleteOrderById(int id){
-        repository.delete(repository.findById(id));
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(orderNew, HttpStatus.OK);
     }
 
 }
