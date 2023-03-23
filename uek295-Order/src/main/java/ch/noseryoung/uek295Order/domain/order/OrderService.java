@@ -31,11 +31,6 @@ public class OrderService {
         repository.save(order);
         return new ResponseEntity<>(order, HttpStatus.OK);
     }
-
-    public ResponseEntity<Order> deleteOrder(Order order){
-        repository.delete(order);
-        return new ResponseEntity<>(order, HttpStatus.OK);
-    }
     public ResponseEntity<Order> updateOrder(Order orderNew) throws OrderNotFoundException {
         Order orderOld = getOrderById(orderNew.getOrderID());
         orderOld.setCustomerID(orderNew.getCustomerID());
@@ -43,6 +38,10 @@ public class OrderService {
         orderOld.setOrderID(orderNew.getOrderID());
         repository.save(orderOld);
         return new ResponseEntity<>(orderNew, HttpStatus.OK);
+    }
+    public ResponseEntity<Order> deleteOrder(Order order){
+        repository.delete(order);
+        return new ResponseEntity<>(order, HttpStatus.OK);
     }
 
 }

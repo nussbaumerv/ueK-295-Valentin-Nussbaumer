@@ -23,6 +23,19 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "email")
+    private String email;
+
+  /*  @Column(name = "enabled")
+    private boolean enabled;
+
+    @Column(name = "account_non_expired")
+    private String account_non_expired;
+
+    @Column(name = "account_non_locked")
+    private String account_non_locked;
+
+   */
     @ManyToMany(fetch =FetchType.EAGER)
     @JoinTable(
             name = "user_role",

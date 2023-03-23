@@ -2,6 +2,7 @@ package ch.noseryoung.uek295Order.domain.security;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -29,21 +30,23 @@ public class SecurityConfig {
         return new ProviderManager(provider);
     }
 
-    /*filter chain which can be matched with an HTTP request */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                //set security by urls
-                .antMatchers("/api/**").permitAll()
+                .antMatchers("/welcome").permitAll()
+                .antMatchers("/admin").hasAuthority("ADMIN")
+                .antMatchers(HttpMethod.GET, "/order-services/**").hasAuthority("READ")
+                .antMatchers(HttpMethod.POST, "/order-services/**").hasAuthority("CREATE")
+                .antMatchers(HttpMethod.PUT, "/order-services/**").hasAuthority("UPDATE")
+                .antMatchers(HttpMethod.DELETE, "/order-services/**").hasAuthority("DELETE")
                 .anyRequest()
                 .authenticated()
                 .and()
-                .httpBasic() //enable HTTP-Basic Auth
-                //Disable CORS and CSRF protection
+                .httpBasic()
                 .and().csrf()
                 .disable().cors().disable()
                 .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS); //never creates an HTTP session
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
         return http.build();
     }
