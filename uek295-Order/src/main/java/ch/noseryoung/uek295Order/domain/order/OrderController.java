@@ -3,15 +3,13 @@ package ch.noseryoung.uek295Order.domain.order;
 import ch.noseryoung.uek295Order.domain.order.Exceptions.OrderNotFoundException;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+
 
 @Log4j2
 @RestController

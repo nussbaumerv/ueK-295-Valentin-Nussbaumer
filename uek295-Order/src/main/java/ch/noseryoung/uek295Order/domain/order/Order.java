@@ -1,7 +1,6 @@
 package ch.noseryoung.uek295Order.domain.order;
 
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.Setter;
 
 import javax.persistence.Entity;
