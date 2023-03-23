@@ -17,10 +17,29 @@ public class Welcome {
                 "text-align: center;" +
                 "color:white;" +
                 "font-family: arial;" +
+
+                "}" +
+                "#myDIV {" +
+                "  margin: auto;" +
+                "  width: 200px;" +
+                "  height: 100px;" +
+                "  text-align:center;" +
+                "  animation: mymove 5s infinite;" +
+                "}" +
+                "" +
+                "@keyframes mymove {" +
+                "  0% {transform: rotate(360deg);}" +
+                "}" +
+                "a{" +
+                "color:grey;" +
+                "font-size:18px;" +
                 "} </style>" +
                 "<body>" +
                 "<br>" +
+                "<div id= 'myDIV'>" +
                 "<h1>Hi there</h1>" +
+                "</div>" +
+                "<br><br><br><br><a href='https://github.com/nussbaumerv/ueK-295-Valentin-Nussbaumer'> Click here for mor Information obout this Program</a>" +
                 "</body>" +
                 "<html>";
     }
