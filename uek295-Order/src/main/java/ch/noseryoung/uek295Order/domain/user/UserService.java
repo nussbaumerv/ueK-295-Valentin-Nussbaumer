@@ -1,7 +1,6 @@
 package ch.noseryoung.uek295Order.domain.user;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 
 @Service
-@Log4j2
+
 public class UserService implements UserDetailsService {
     UserRepository repository;
 
