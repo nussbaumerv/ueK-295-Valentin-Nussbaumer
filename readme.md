@@ -45,3 +45,7 @@ Hi there
 ## OpenAPI definition
 Wenn alle korrekt eingerichtet ist kann man unter folgenden url: http://localhost:8080/swagger-ui/index.html#/ <br>
 Die verschiedenen Methoden von dem Programm sehen.
+
+## Postman
+Über Postman können Requests getätigt werden und Tests durchgefürt werden. <br>
+Meine Postman Tests finden sie hier: https://github.com/nussbaumerv/ueK-295-Valentin-Nussbaumer/blob/main/uek295-Order/Postman-Tests.js
